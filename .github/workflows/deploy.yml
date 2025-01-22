@@ -1,0 +1,46 @@
+name: Upload to Cloud Transport Management
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install MTA Build Tool
+        run: npm install -g mbt
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build MTA
+        run: mbt build -t gen --mtar mta.tar
+
+      - name: Upload MTA Archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: mta
+          path: ./gen/mta.tar
+  
+  # transport:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #     - name: Download MTA Archive
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: mta
+  #         path: ./
+
+  #     - name: Execute HTTP Request
