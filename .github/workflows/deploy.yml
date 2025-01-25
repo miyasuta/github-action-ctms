@@ -44,11 +44,11 @@ jobs:
           path: ./
 
       - name: Upload files to CTMS
-      uses: miyasuta/ctms-upload-action@v1
-      with:
-          mta: ./mta.tar
-          credentials: ${{ secrets.CTMS_CREDENTIALS }}
-          nodeName: DEV
-          # set commit message and hash as transport description
-          transportDescription: ${{ github.sha }} - ${{ github.event.head_commit.message }}
-          namedUser: GitHubActions
+        uses: miyasuta/ctms-upload-action@v1
+        with:
+            mta: ./mta.tar
+            credentials: ${{ secrets.CTMS_CREDENTIALS }}
+            nodeName: DEV
+            # set commit message and hash as transport description
+            transportDescription: ${{ github.sha }} - ${{ github.event.head_commit.message }}
+            namedUser: GitHubActions
