@@ -44,7 +44,7 @@ jobs:
           path: ./
 
       - name: Upload files to CTMS
-        uses: miyasuta/ctms-upload-action@v1
+        uses: miyasuta/ctms-upload-action@main
         with:
             mta: ./mta.tar
             credentials: ${{ secrets.CTMS_CREDENTIALS }}
