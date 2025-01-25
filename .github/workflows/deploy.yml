@@ -33,14 +33,22 @@ jobs:
           name: mta
           path: ./gen/mta.tar
   
-  # transport:
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
-  #     - name: Download MTA Archive
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: mta
-  #         path: ./
+  transport:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download MTA Archive
+        uses: actions/download-artifact@v4
+        with:
+          name: mta
+          path: ./
 
-  #     - name: Execute HTTP Request
+      - name: Upload files to CTMS
+      uses: miyasuta/ctms-upload-action@v1
+      with:
+          mta: ./mta.tar
+          credentials: ${{ secrets.CTMS_CREDENTIALS }}
+          nodeName: DEV
+          # set commit message and hash as transport description
+          transportDescription: ${{ github.sha }} - ${{ github.event.head_commit.message }}
+          namedUser: GitHubActions
