@@ -56,3 +56,4 @@ jobs:
             # set short commit hash and commit message as transport description
             transportDescription: ${{ env.SHORT_SHA }} - ${{ github.event.head_commit.message }}
             namedUser: GitHubActions
+            importTransportRequests: true
